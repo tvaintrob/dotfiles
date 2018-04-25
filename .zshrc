@@ -21,6 +21,11 @@ alias cls='clear'
 alias sorc='source ~/.zshrc'
 alias :q='exit'
 alias vimrc="vim ~/.config/nvim/init.vim"
+alias l='gls -lah --group-directories-first --color=always'
+alias la='gls -lAh --group-directories-first --color=always'
+alias ll='gls -lh --group-directories-first --color=always'
+alias ls='gls -G --group-directories-first --color=always'
+alias lsa='gls -lah --group-directories-first --color=always'
 
 eval $(thefuck --alias)
 source "/usr/local/bin/virtualenvwrapper.sh"
