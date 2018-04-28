@@ -52,3 +52,5 @@
 [user]
     email = tvaintrob@gmail.com
     name = Tal Vintrob
+[alias]
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"

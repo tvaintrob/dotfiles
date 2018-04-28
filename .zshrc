@@ -29,3 +29,4 @@ alias lsa='gls -lah --group-directories-first --color=always'
 
 eval $(thefuck --alias)
 source "/usr/local/bin/virtualenvwrapper.sh"
+source "/usr/local/etc/profile.d/z.sh"
