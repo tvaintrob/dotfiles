@@ -1,5 +1,5 @@
 export GOPATH=$HOME/code/go
-export PATH=$HOME/bin:/usr/local/bin:$GOPATH:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$GOPATH:$GOPATH/bin:$PATH
 export ZSH=/Users/tvaintrob/.oh-my-zsh
 export EDITOR='nvim'
 
