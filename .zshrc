@@ -7,10 +7,12 @@ ZSH_THEME="robbyrussell"
 HYPHEN_INSENSITIVE="true"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="dd.mm.yyyy"
+PROJECT_HOME=~/code/.projects
 
 plugins=( git gitignore npm zsh-better-npm-completions pip brew sudo osx jsontools zsh-syntax-highlighting )
 
 source $ZSH/oh-my-zsh.sh
+[ -n "$PS1" ] && sh ~/.config/nvim/plugged/cosmic_latte/cosmic_latte_dark.sh
 
 # User configuration
 
@@ -30,3 +32,7 @@ alias lsa='gls -lah --group-directories-first --color=always'
 eval $(thefuck --alias)
 source "/usr/local/bin/virtualenvwrapper.sh"
 source "/usr/local/etc/profile.d/z.sh"
+
+fpath=(/usr/local/share/zsh-completions $fpath)
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/Frameworks/flutter/bin:$PATH"

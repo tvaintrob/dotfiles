@@ -1,121 +1,110 @@
-" NeoVIM Config
-" Tal Vintrob, 2017
+" NeoVIM config file
 "
-" Mostly sensible settings, nothing too complicated
+" Created: 03/07/2018
+" Author: Tal Vintrob
 
-
-source ~/.config/nvim/plugins.vim
-
-syntax on
-
-colorscheme nova
-let g:airline_theme = "nova"
-
-let mapleader = ','
+" install vim-plug if not installed
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
+let mapleader = ','
 
-let g:closetag_filenames = "*.html,*.jsx,*.js,*.tsx"    " Enable closetag for html/jsx
-let g:deoplete#enable_at_startup = 1                    " Enable deoplete
+call plug#begin('~/.local/share/nvim/plugged')
 
-let g:LanguageClient_autoStart = 1
+" initial base
+Plug 'trevordmiller/nova-vim'           " colorscheme
+Plug 'nightsense/cosmic_latte'          " another one
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+Plug 'sheerun/vim-polyglot'		        " language support pack
+Plug 'tpope/vim-sensible'		        " default settings
+Plug 'tpope/vim-surround'               " surrounding things
+Plug 'editorconfig/editorconfig-vim'	" load .editorconfig files
+Plug 'vim-airline/vim-airline'          " replace status bar
+Plug 'vim-scripts/SyntaxRange'          " multiple syntax in single file
+Plug 'Shougo/context_filetype.vim'
+
+let g:airline_theme = 'cosmic_latte_dark'
+let g:airline#extensions#ale#enabled = 1
+let g:go_fmt_command = "goimports"
+
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-vinegar'
+Plug 'alvan/vim-closetag'
+
+" add support to jsx closing
+let g:closetag_filenames = '*.html,*.js,*.jsx,*.vue'
+let g:closetag_filetypes = '*.html,*.js,*.jsx,*.vue'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
+
+" snippets
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+" expand snippets with C-k
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" autocompletions
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'   " selection UI for lsp
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'Shougo/neco-vim', { 'for': 'vim' }
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
+
+let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_serverCommands['typescript'] = ['javascript-typescript-stdio']
-let g:LanguageClient_serverCommands['javascript'] = ['javascript-typescript-stdio']
-let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
 let g:LanguageClient_serverCommands['css'] = ['css-languageserver', '--stdio']
-let g:LanguageClient_serverCommands['scss'] = ['css-languageserver', '--stdio']
-let g:LanguageClient_serverCommands['sass'] = ['css-languageserver', '--stdio']
-let g:LanguageClient_serverCommands['cpp'] = ['cquery', '--log-file=/tmp/cq.log']
-let g:LanguageClient_serverCommands['c'] = ['cquery', '--log-file=/tmp/cq.log']
+let g:LanguageClient_serverCommands['html'] = ['html-languageserver', '--stdio']
+let g:LanguageClient_serverCommands['typescript'] = ['javascript-typescript-stdio']
+let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
+let g:LanguageClient_serverCommands['vue'] = ['vls']
 
-let g:ale_sign_column_always = 1
-let g:ale_lint_on_text_changed = "never"
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_save = 1
+nnoremap <leader><leader> :call LanguageClient_contextMenu()<CR>
 
-let g:ale_linters = { 'typescript': ['tslint', 'tsserver', 'typecheck'] }
+" linting
+Plug 'w0rp/ale'
 
-let g:formatdef_prettier = '"prettier --print-width 80 --tab-width 2 --single-quote --trailing-comma all"'
-let g:formatdef_prettier_ts = '"prettier --print-width 80 --tab-width 2 --single-quote --parser typescript --trailing-comma all"'
-let g:formatters_javascript = ['prettier']
-let g:formatters_typescript = ['prettier_ts']
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_open_list = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_fix_on_save = 1
+let g:ale_linters = {}
+let g:ale_fixers = {}
+let g:ale_linters['javascript'] = []
+let g:ale_linters['javascript.jsx'] = []
+let g:ale_linters['python'] = ['flake8']
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['javascript.jsx'] = ['prettier']
+let g:ale_fixers['json'] = ['prettier']
+let g:ale_fixers['typescript'] = ['prettier']
+let g:ale_fixers['vue'] = ['prettier']
+let g:ale_fixers['python'] = ['black', 'isort']
 
-" Auto format on save
-autocmd BufWrite * :Autoformat
-autocmd FileType make let b:autoformat_retab = 0
+let g:ale_python_flake8_options = '--max-line-length=88'
 
-" clear highlights with space
-noremap <space> :set hlsearch! hlsearch?<cr>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" enable the . command in visual mode
-vnoremap . :normal .<cr>
+Plug 'sotte/presenting.vim'
 
-imap <C-k>  <Plug>(neosnippet_expand_or_jump)
-smap <C-k>  <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>  <Plug>(neosnippet_expand_or_jump)
+call plug#end()
 
-" Diable arrows
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+set background=dark
+set termguicolors
+colorscheme cosmic_latte
 
-" Dont need the extra shift
-nmap ; :
+set number
+set relativenumber
 
-" Get out of insert on the hr
-imap jj <esc>
-
-" LanguageServer bindings
-nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> K :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <silent> ga :call LanguageClient_textDocument_codeAction()<CR>
-nnoremap <silent> <C-g><C-r> :call LanguageClient_textDocument_rename()<CR>
-
-set autoread            " auto detect file changes
-set history=1000        " history is important
-set hidden              " hide buffers instead of closing
-
-set textwidth=150       " sensible text width
-set wrap                " wrap text
-set wrapmargin=8        " wrap 8 chars from the side
-set linebreak           " soft wraping
-
-set number              " show line numbers
-set relativenumber      " show relative lines
-
-set autoindent          " auto indent next line
-set smartindent         " smart indent for c-like programs
-
-set completeopt+=noinsert   " recommend completions
-set completeopt-=preview    " disable preview window
-
-set foldmethod=syntax       " indent based folding
-set foldnestmax=10          " max 10 folds
-set nofoldenable            " dont fold by default
-
-set clipboard=unnamed       " use system clipboard
-set scrolloff=7             " show 7 lines above and below the cursor
-
-set noshowmode          " Airline shows anyway
-
-set noerrorbells        " dont make sounds
-set visualbell          " show visuals
-
-set ignorecase          " case insensitive search
-set smartcase           " case sensitive if using capitalized
-set hlsearch            " highlight search
-set incsearch           " highlight as i type
-
-set showmatch           " show matching braces
-set matchtime=2         " blink for 2 tenths of a second
-
-set wildmenu            " better command line completion
-set showcmd             " show cmd as i type
-
-set cursorline      " highlight current line
-
+set clipboard=unnamed   " share system clipboard
+set signcolumn=yes
