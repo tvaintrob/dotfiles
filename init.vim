@@ -19,17 +19,25 @@ call plug#begin('~/.local/share/nvim/plugged')
 " initial base
 Plug 'trevordmiller/nova-vim'           " colorscheme
 Plug 'nightsense/cosmic_latte'          " another one
+Plug 'morhetz/gruvbox'                  " another one
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'sheerun/vim-polyglot'		        " language support pack
 Plug 'tpope/vim-sensible'		        " default settings
 Plug 'tpope/vim-surround'               " surrounding things
+Plug 'tpope/vim-fugitive'               " git workflow
+Plug 'tpope/vim-commentary'             " comment lines
 Plug 'editorconfig/editorconfig-vim'	" load .editorconfig files
 Plug 'vim-airline/vim-airline'          " replace status bar
 Plug 'vim-scripts/SyntaxRange'          " multiple syntax in single file
 Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/echodoc.vim'
+Plug 'Shougo/denite.nvim'
 
-let g:airline_theme = 'cosmic_latte_dark'
-let g:airline#extensions#ale#enabled = 1
+let g:echodoc#enable_at_startup = 1
+
+let g:airline_theme = 'gruvbox'
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 let g:go_fmt_command = "goimports"
 
 Plug 'jiangmiao/auto-pairs'
@@ -52,59 +60,89 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " autocompletions
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim'   " selection UI for lsp
-Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'Shougo/neoinclude.vim'
+Plug 'jsfaint/coc-neoinclude'
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
-
-let g:deoplete#enable_at_startup = 1
-let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_serverCommands['css'] = ['css-languageserver', '--stdio']
-let g:LanguageClient_serverCommands['html'] = ['html-languageserver', '--stdio']
-let g:LanguageClient_serverCommands['typescript'] = ['javascript-typescript-stdio']
-let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
-let g:LanguageClient_serverCommands['vue'] = ['vls']
-
-nnoremap <leader><leader> :call LanguageClient_contextMenu()<CR>
-
-" linting
-Plug 'w0rp/ale'
-
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_open_list = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_fix_on_save = 1
-let g:ale_linters = {}
-let g:ale_fixers = {}
-let g:ale_linters['javascript'] = []
-let g:ale_linters['javascript.jsx'] = []
-let g:ale_linters['python'] = ['flake8']
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['javascript.jsx'] = ['prettier']
-let g:ale_fixers['json'] = ['prettier']
-let g:ale_fixers['typescript'] = ['prettier']
-let g:ale_fixers['vue'] = ['prettier']
-let g:ale_fixers['python'] = ['black', 'isort']
-
-let g:ale_python_flake8_options = '--max-line-length=88'
-
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-Plug 'sotte/presenting.vim'
+Plug 'neoclide/coc-neco', { 'for': 'vim' }
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
+" allow comments in json files
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" auto sync syntax in vue files, it breaks sometimes
+autocmd FileType vue syntax sync fromstart
+
 set background=dark
+
+" force true color
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
-colorscheme cosmic_latte
+colorscheme gruvbox
+
+let g:gruvbox_italic=1
+highlight Comment cterm=italic gui=italic
 
 set number
 set relativenumber
 
 set clipboard=unnamed   " share system clipboard
 set signcolumn=yes
+set nohlsearch
+set noshowmode
+set cursorline
+
+" Coc.nvim configurations
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[[` and `]]` to navigate diagnostics
+nmap <silent> [[ <Plug>(coc-diagnostic-prev)
+nmap <silent> ]] <Plug>(coc-diagnostic-next)
+
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
