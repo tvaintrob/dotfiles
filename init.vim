@@ -14,6 +14,7 @@ let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let mapleader = ','
 
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 " initial base
@@ -26,6 +27,7 @@ Plug 'tpope/vim-sensible'		        " default settings
 Plug 'tpope/vim-surround'               " surrounding things
 Plug 'tpope/vim-fugitive'               " git workflow
 Plug 'tpope/vim-commentary'             " comment lines
+Plug 'tpope/vim-repeat'                 " repeat plugin actions
 Plug 'editorconfig/editorconfig-vim'	" load .editorconfig files
 Plug 'vim-airline/vim-airline'          " replace status bar
 Plug 'vim-scripts/SyntaxRange'          " multiple syntax in single file
