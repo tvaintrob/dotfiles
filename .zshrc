@@ -1,6 +1,8 @@
 export GOPATH=$HOME/code/go
 export PATH=$HOME/bin:/usr/local/bin:$GOPATH:$GOPATH/bin:$PATH
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export ZSH=/Users/tvaintrob/.oh-my-zsh
+export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""' 
 export EDITOR='nvim'
 
 ZSH_THEME="robbyrussell"
@@ -13,8 +15,11 @@ plugins=( git gitignore npm pip brew sudo osx jsontools zsh-syntax-highlighting 
 
 source $ZSH/oh-my-zsh.sh
 
+
+
 # User configuration
 
+alias ctags='/usr/local/bin/ctags'
 alias vim='nvim'
 alias vi='nvim'
 alias zshrc='$EDITOR ~/.zshrc'
@@ -48,3 +53,7 @@ export HOMEBREW_AUTO_UPDATE_SECS=18000
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
