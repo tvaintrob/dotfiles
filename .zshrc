@@ -17,6 +17,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias vim='nvim'
 alias vi='nvim'
+alias sv='vim -u ~/.SpaceVim/vimrc'
 alias zshrc='$EDITOR ~/.zshrc'
 alias cls='clear'
 alias sorc='source ~/.zshrc'
