@@ -3,7 +3,11 @@
 " Created: 03/07/2018
 " Author: Tal Vintrob
 
-" install vim-plug if not installed
+let mapleader = ','
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" Auto install vim-plug and missing plugins
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -13,77 +17,79 @@ endif
 " auto install plugins
 autocmd VimEnter *
             \  if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-            \|   PlugInstall | q
+            \|   PlugInstall
             \| endif
-
-let mapleader = ','
-
-" install plugins
+" Plugin Definitions
 call plug#begin('~/.local/share/nvim/plugged')
 
-" UI & colors
+" Core Editor Plugins
+Plug 'vim-airline/vim-airline'
+Plug 'mhinz/vim-startify'
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/jsonc.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'cohama/lexima.vim'
+Plug 'alvan/vim-closetag'
+Plug 'AndrewRadev/splitjoin.vim'
+" Editor Theme Plugins
 Plug 'blueshirts/darcula'
 Plug 'joshdick/onedark.vim'
-Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sheerun/vim-polyglot' " language pack
-Plug 'mhinz/vim-startify'
-Plug 'neoclide/jsonc.vim'
-
-" Editor Behavior
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-endwise'
-Plug 'cohama/lexima.vim'
-let g:lexima_enable_newline_rules = 1
-
-Plug 'alvan/vim-closetag'
-let g:closetag_filetypes = 'html,vue'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
-let g:closetag_regions = { 'typescript.tsx': 'jsxRegion,tsxRegion', 'javascript.jsx': 'jsxRegion' }
-
-" File Navigation
-Plug 'tpope/vim-vinegar'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-nmap <leader><leader> :Files<cr>
-nmap <leader>t :Tags<cr>
-
-" Source Control
-Plug 'mhinz/vim-signify'
-let g:signify_vcs_list = ['git']
-
-" Language Features
-Plug 'honza/vim-snippets'
+" Intellisense and Language Features
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-
+Plug 'honza/vim-snippets'
 Plug 'Chiel92/vim-autoformat'
-autocmd BufWrite * :Autoformat
-let g:formatters_python = ['autopep8']
-let g:formatters_typescript = ['prettier']
-let g:formatters_javascript = ['prettier']
+
+" Coc Extensions
+let g:coc_global_extensions = [
+            \'coc-json',
+            \'coc-html',
+            \'coc-css',
+            \'coc-vetur',
+            \'coc-tsserver',
+            \'coc-python',
+            \'coc-vimlsp',
+            \'coc-lists',
+            \'coc-git',
+            \'coc-yank',
+            \'coc-snippets',
+            \'coc-word',
+            \'coc-emoji']
+
+" Source Control Plugins
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
-
-" color settings
+" Theme Settings
 syntax on
 set termguicolors
+set number
+set relativenumber
+set signcolumn=yes
+
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='murmur'
 colorscheme darcula
 
 highlight Comment cterm=italic gui=italic
-
-set number
-set relativenumber
-set signcolumn=yes
-
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
-
-" Tab for selecting expanding and jumping through snippets
+" CloseTag Settings
+let g:closetag_filetypes = 'html,vue'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:closetag_regions = { 'typescript.tsx': 'jsxRegion,tsxRegion', 'javascript.jsx': 'jsxRegion' }
+" Formatter Settings
+autocmd BufWrite * :Autoformat
+let g:formatters_python = ['autopep8']
+let g:formatters_typescript = ['prettier']
+let g:formatters_javascript = ['prettier']
+" List mappings (files / search / yanks)
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <leader><leader> :CocList files<cr>
+nnoremap <silent> <leader>/ :CocList grep<cr>
+" Setup <Tab> for snippets expantions
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? coc#_select_confirm() :
             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -96,6 +102,13 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
-
+let g:coc_snippet_prev = '<s-tab>'
+" Misc Settings
+let g:signify_vcs_list = ['git']
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 autocmd BufNewFile,BufRead *.json setlocal filetype=jsonc
+augroup AutoSaveFolds
+    autocmd!
+    autocmd BufWinLeave * mkview
+    autocmd BufWinEnter * silent! loadview
+augroup end
