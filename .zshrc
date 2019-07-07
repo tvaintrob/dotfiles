@@ -2,6 +2,7 @@ export GOPATH=$HOME/code/epsagon/go
 export PATH=$HOME/bin:/usr/local/bin:$GOPATH:$GOPATH/bin:$PATH
 export PATH="/usr/local/opt/python36/bin:$PATH"
 export ZSH=/Users/tvaintrob/.oh-my-zsh
+export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 export EDITOR='nvim'
 export PYTHONPATH=/Users/tvaintrob/code/epsagon/epsagon-backend:/Users/tvaintrob/code/epsagon/epsagon-backend/events_search:/Users/tvaintrob/code/epsagon/epsagon-backend/architecture:/Users/tvaintrob/code/epsagon/epsagon-backend/aws_roles:/Users/tvaintrob/code/epsagon/epsagon-backend/functions_service:/Users/tvaintrob/code/epsagon/epsagon-backend/account_service:/Users/tvaintrob/code/epsagon/epsagon-backend/notification_service:/Users/tvaintrob/code/epsagon/epsagon-backend/user_management:/Users/tvaintrob/code/epsagon/epsagon-backend/transaction_writing:$PYTHONPATH
 
@@ -15,8 +16,11 @@ plugins=( git gitignore npm pip brew sudo osx jsontools zsh-syntax-highlighting 
 
 source $ZSH/oh-my-zsh.sh
 
+
+
 # User configuration
 
+alias ctags='/usr/local/bin/ctags'
 alias vim='nvim'
 alias vi='nvim'
 alias sv='vim -u ~/.SpaceVim/vimrc'
@@ -52,4 +56,4 @@ export HOMEBREW_AUTO_UPDATE_SECS=18000
             # uninstall by removing these lines or running `tabtab uninstall slss`
             [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+            [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
