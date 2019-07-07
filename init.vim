@@ -13,37 +13,36 @@ endif
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let mapleader = ','
-
+set mouse=a
 
 call plug#begin('~/.local/share/nvim/plugged')
 
 " initial base
-Plug 'trevordmiller/nova-vim'           " colorscheme
-Plug 'nightsense/cosmic_latte'          " another one
-Plug 'morhetz/gruvbox'                  " another one
-Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
-Plug 'sheerun/vim-polyglot'		        " language support pack
-Plug 'tpope/vim-sensible'		        " default settings
+Plug 'blueshirts/darcula'
+Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'                  " colorscheme
+Plug 'sheerun/vim-polyglot'             " language support pack
+Plug 'tpope/vim-sensible'               " default settings
 Plug 'tpope/vim-surround'               " surrounding things
 Plug 'tpope/vim-fugitive'               " git workflow
 Plug 'tpope/vim-commentary'             " comment lines
 Plug 'tpope/vim-repeat'                 " repeat plugin actions
-Plug 'editorconfig/editorconfig-vim'	" load .editorconfig files
+Plug 'editorconfig/editorconfig-vim'    " load .editorconfig files
 Plug 'vim-airline/vim-airline'          " replace status bar
+Plug 'vim-airline/vim-airline-themes'   " statusbar themes
 Plug 'vim-scripts/SyntaxRange'          " multiple syntax in single file
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/denite.nvim'
 
 let g:echodoc#enable_at_startup = 1
 
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'tomorrow'
+let g:airline_powerline_fonts = 1
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 let g:go_fmt_command = "goimports"
 
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-endwise'
+Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'alvan/vim-closetag'
 
@@ -53,20 +52,22 @@ let g:closetag_filetypes = '*.html,*.js,*.jsx,*.vue'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,vue'
 
 " snippets
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
 
 " expand snippets with C-k
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" autocompletions
-Plug 'Shougo/neoinclude.vim'
-Plug 'jsfaint/coc-neoinclude'
-Plug 'Shougo/neco-vim', { 'for': 'vim' }
-Plug 'neoclide/coc-neco', { 'for': 'vim' }
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" language features
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Chiel92/vim-autoformat'
+
+let g:formatters_javascript = ['prettier']
+let g:formatters_typescript = ['prettier']
+let g:formatters_python = ['autopep8']
+
+au BufWrite * :Autoformat
 
 call plug#end()
 
@@ -82,9 +83,8 @@ set background=dark
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
-colorscheme gruvbox
+colorscheme darcula
 
-let g:gruvbox_italic=1
 highlight Comment cterm=italic gui=italic
 
 set number
@@ -101,20 +101,21 @@ set cursorline
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use `[[` and `]]` to navigate diagnostics
-nmap <silent> [[ <Plug>(coc-diagnostic-prev)
-nmap <silent> ]] <Plug>(coc-diagnostic-next)
-
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 " Highlight symbol under cursor on CursorHold
@@ -126,6 +127,19 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
+
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? coc#_select_confirm() :
+            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 " Using CocList
 " Show all diagnostics
