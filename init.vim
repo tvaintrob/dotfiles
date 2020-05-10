@@ -1,122 +1,110 @@
-" NeoVIM config file
+" NeoVim Config
 "
-" Created: 03/07/2018
-" Author: Tal Vintrob
+" by Tal Vintrob
 
-let mapleader = ','
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+syntax on
 
-" Auto install vim-plug and missing plugins {{{
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+set noerrorbells
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+set number relativenumber
+set nowrap
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.config/nvim/undo
+set undofile
+set incsearch
+set cmdheight=2
+set updatetime=50
+set shortmess+=c
+set scrolloff=10
+set mouse=a
+set cursorline
+set hidden
+set splitbelow
+set splitright
 
-" auto install plugins
-autocmd VimEnter *
-            \  if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-            \|   PlugInstall
-            \| endif
-" }}}
-" Plugin Definitions {{{
-call plug#begin('~/.local/share/nvim/plugged')
+set signcolumn=yes
+set colorcolumn=100
+highlight ColorColumn ctermbg=0 guibg=lightgray
 
-" Core Editor Plugins {{{
+
+call plug#begin(stdpath('data') . '/plugged')
+
+" UI
+Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim'
+Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
-Plug 'mhinz/vim-startify'
-Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/jsonc.vim'
+
+" Editor Behavior
+Plug 'mbbill/undotree'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'cohama/lexima.vim'
-Plug 'alvan/vim-closetag'
-Plug 'AndrewRadev/splitjoin.vim'
-" }}}
-" Editor Theme Plugins {{{
-Plug 'blueshirts/darcula'
-Plug 'joshdick/onedark.vim'
-Plug 'vim-airline/vim-airline-themes'
-" }}}
-" Intellisense and Language Features {{{
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets'
-Plug 'Chiel92/vim-autoformat'
+Plug 'liuchengxu/vista.vim'
 
-" Coc Extensions
-let g:coc_global_extensions = [
-            \'coc-json',
-            \'coc-html',
-            \'coc-css',
-            \'coc-vetur',
-            \'coc-tsserver',
-            \'coc-python',
-            \'coc-vimlsp',
-            \'coc-lists',
-            \'coc-git',
-            \'coc-yank',
-            \'coc-snippets',
-            \'coc-word',
-            \'coc-emoji']
-" }}}
-" Source Control Plugins {{{
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-fugitive'
-" }}}
+" Language Extensions
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'vim-python/python-syntax'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
-" }}}
 
-" Theme Settings {{{
-syntax on
 set termguicolors
-set number
-set relativenumber
-set signcolumn=yes
+set background=dark
+let ayucolor="dark"
+colorscheme ayu
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-let g:airline_powerline_fonts = 1
-let g:airline_theme='murmur'
-colorscheme darcula
+let mapleader = ","
+
+let g:rg_derive_root = 'true'
+let g:airline#extensions#tabline#enabled = 1
+let g:polyglot_disabled = ['js', 'ts', 'tsx', 'jsx', 'py']
+let g:coc_global_extensions = ['coc-python', 'coc-css', 'coc-html', 'coc-json', 'coc-tsserver', 'coc-prettier', 'coc-vimlsp', 'coc-git']
+
+let g:indentLine_char = '▏'
+let g:indentLine_first_char = '▏'
+let g:indentLine_showFirstIndentLevel = 1
+
+let g:vista_default_executive = 'coc'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista#renderer#enable_icon = 0
+
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader><CR> :source $MYVIMRC<CR>
+nnoremap <leader>h :nohlsearch<CR>
+
+nnoremap <leader>ps :Rg<SPACE>
+nnoremap <C-f> :Rg<CR>
+nnoremap <C-p> :GFiles<CR>
 
 highlight Comment cterm=italic gui=italic
-" }}}
-" CloseTag Settings {{{
-let g:closetag_filetypes = 'html,vue'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
-let g:closetag_regions = { 'typescript.tsx': 'jsxRegion,tsxRegion', 'javascript.jsx': 'jsxRegion' }
-" }}}
-" Formatter Settings {{{
-autocmd BufWrite * :Autoformat
-let g:formatters_python = ['autopep8']
-let g:formatters_typescript = ['prettier']
-let g:formatters_javascript = ['prettier']
-" }}}
-" List mappings (files / search / yanks) {{{
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> <leader><leader> :CocList files<cr>
-nnoremap <silent> <leader>/ :CocList grep<cr>
-" }}}
-" Setup <Tab> for snippets expantions {{{
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? coc#_select_confirm() :
-            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+autocmd FileType vim,typescript,typescriptreact highlight Type cterm=italic gui=italic
+autocmd FileType python autocmd BufWritePre <buffer> call CocAction('runCommand', 'editor.action.organizeImport')
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+" Use Ctrl-Space to refresh completions
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
 endfunction
-
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<s-tab>'
-" }}}
-" Misc Settings {{{
-let g:signify_vcs_list = ['git']
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-autocmd BufNewFile,BufRead *.json setlocal filetype=jsonc
-autocmd BufNewFile,BufRead *.vim setlocal foldmethod=marker
-" }}}
