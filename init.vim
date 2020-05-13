@@ -50,6 +50,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cohama/lexima.vim'
 Plug 'liuchengxu/vista.vim'
+Plug 'unblevable/quick-scope'
 
 " Language Extensions
 Plug 'yuezk/vim-js'
@@ -73,6 +74,7 @@ let g:rg_derive_root = 'true'
 let g:airline#extensions#tabline#enabled = 1
 let g:polyglot_disabled = ['js', 'ts', 'tsx', 'jsx', 'py']
 let g:coc_global_extensions = ['coc-python', 'coc-css', 'coc-html', 'coc-json', 'coc-tsserver', 'coc-prettier', 'coc-vimlsp', 'coc-git']
+let g:qs_buftype_blacklist = ['terminal', 'nofile']
 
 let g:indentLine_char = '▏'
 let g:indentLine_first_char = '▏'
@@ -91,9 +93,14 @@ nnoremap <leader>ps :Rg<SPACE>
 nnoremap <C-f> :Rg<CR>
 nnoremap <C-p> :GFiles<CR>
 
+" Coc.nvim GoTo mappings
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 highlight Comment cterm=italic gui=italic
 autocmd FileType vim,typescript,typescriptreact highlight Type cterm=italic gui=italic
-autocmd FileType python autocmd BufWritePre <buffer> call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Use Ctrl-Space to refresh completions
 inoremap <silent><expr> <c-space> coc#refresh()
