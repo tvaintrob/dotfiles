@@ -31,7 +31,6 @@ set signcolumn=yes
 set colorcolumn=100
 highlight ColorColumn ctermbg=0 guibg=lightgray
 
-
 call plug#begin(stdpath('data') . '/plugged')
 
 " UI
@@ -83,6 +82,9 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:vista_default_executive = 'coc'
 let g:vista_fzf_preview = ['right:50%']
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_stay_on_open = 0
+let g:vista_echo_cursor_strategy = 'floating_win'
+let g:vista_sidebar_width = 50
 let g:vista#renderer#enable_icon = 0
 
 nnoremap <leader>u :UndotreeShow<CR>
@@ -92,6 +94,11 @@ nnoremap <leader>h :nohlsearch<CR>
 nnoremap <leader>ps :Rg<SPACE>
 nnoremap <C-f> :Rg<CR>
 nnoremap <C-p> :GFiles<CR>
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Coc.nvim GoTo mappings
 nmap <silent> gd <Plug>(coc-definition)
