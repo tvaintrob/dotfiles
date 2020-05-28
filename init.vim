@@ -56,6 +56,7 @@ Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'vim-python/python-syntax'
+Plug 'alfredodeza/pytest.vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
