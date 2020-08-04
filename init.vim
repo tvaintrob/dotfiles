@@ -13,6 +13,7 @@ set number relativenumber
 set nowrap
 set smartcase
 set noswapfile
+set lazyredraw
 set nobackup
 set undodir=~/.config/nvim/undo
 set undofile
@@ -44,21 +45,23 @@ Plug 'mbbill/undotree'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cohama/lexima.vim'
-Plug 'liuchengxu/vista.vim'
 Plug 'unblevable/quick-scope'
 
 " Language Extensions
-Plug 'yuezk/vim-js'
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'vim-python/python-syntax'
 Plug 'alfredodeza/pytest.vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'sheerun/vim-polyglot'
+Plug 'dart-lang/dart-vim-plugin'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
@@ -72,7 +75,7 @@ let mapleader = ","
 
 let g:rg_derive_root = 'true'
 let g:airline#extensions#tabline#enabled = 1
-let g:polyglot_disabled = ['js', 'ts', 'tsx', 'jsx', 'py']
+let g:polyglot_disabled = ['typescript', 'typescriptreact', 'javascriptreact', 'javascript', 'python']
 let g:coc_global_extensions = ['coc-python', 'coc-css', 'coc-html', 'coc-json', 'coc-tsserver', 'coc-prettier', 'coc-vimlsp', 'coc-git']
 let g:qs_buftype_blacklist = ['terminal', 'nofile']
 
@@ -94,7 +97,9 @@ nnoremap <leader>h :nohlsearch<CR>
 
 nnoremap <leader>ps :Rg<SPACE>
 nnoremap <C-f> :Rg<CR>
-nnoremap <C-p> :GFiles<CR>
+
+command! Ctrlp execute (len(system('git rev-parse'))) ? ':Files' : ':GFiles'
+nnoremap <C-p> :Ctrlp<CR>
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -108,7 +113,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 highlight Comment cterm=italic gui=italic
-autocmd FileType vim,typescript,typescriptreact highlight Type cterm=italic gui=italic
+autocmd FileType vim,javascript,typescript,javascriptreact,typescriptreact highlight Type cterm=italic gui=italic
 
 " Use Ctrl-Space to refresh completions
 inoremap <silent><expr> <c-space> coc#refresh()
