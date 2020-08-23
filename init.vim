@@ -4,6 +4,9 @@
 
 syntax on
 
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -27,6 +30,7 @@ set cursorline
 set hidden
 set splitbelow
 set splitright
+set conceallevel=0
 
 set signcolumn=yes
 set colorcolumn=100
@@ -39,6 +43,7 @@ Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-gitgutter'
 
 " Editor Behavior
 Plug 'mbbill/undotree'
@@ -51,6 +56,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cohama/lexima.vim'
 Plug 'unblevable/quick-scope'
+Plug 'kkoomen/vim-doge'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 " Language Extensions
 Plug 'othree/yajs.vim'
@@ -73,23 +80,17 @@ colorscheme ayu
 
 let mapleader = ","
 
+let g:mkdp_auto_close = 0
+let g:vim_markdown_conceal = 0
 let g:rg_derive_root = 'true'
 let g:airline#extensions#tabline#enabled = 1
 let g:polyglot_disabled = ['typescript', 'typescriptreact', 'javascriptreact', 'javascript', 'python']
-let g:coc_global_extensions = ['coc-python', 'coc-css', 'coc-html', 'coc-json', 'coc-tsserver', 'coc-prettier', 'coc-vimlsp', 'coc-git']
+let g:coc_global_extensions = ['coc-python', 'coc-css', 'coc-html', 'coc-json', 'coc-tsserver', 'coc-prettier', 'coc-vimlsp']
 let g:qs_buftype_blacklist = ['terminal', 'nofile']
 
 let g:indentLine_char = '▏'
 let g:indentLine_first_char = '▏'
 let g:indentLine_showFirstIndentLevel = 1
-
-let g:vista_default_executive = 'coc'
-let g:vista_fzf_preview = ['right:50%']
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_stay_on_open = 0
-let g:vista_echo_cursor_strategy = 'floating_win'
-let g:vista_sidebar_width = 50
-let g:vista#renderer#enable_icon = 0
 
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader><CR> :source $MYVIMRC<CR>
@@ -111,6 +112,11 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Coc.nvim actions
+nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>qf  <Plug>(coc-fix-current)
+
 
 highlight Comment cterm=italic gui=italic
 autocmd FileType vim,javascript,typescript,javascriptreact,typescriptreact highlight Type cterm=italic gui=italic

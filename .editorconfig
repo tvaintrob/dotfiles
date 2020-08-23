@@ -11,7 +11,7 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.{html,js,css,jsx,ts,tsx,yml,yaml}]
+[*.{html,js,scss,css,jsx,ts,tsx,yml,yaml}]
 indent_size = 2
 
 [*.go]
