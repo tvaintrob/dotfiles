@@ -39,6 +39,8 @@ let g:fzf_action = {
 let g:fzf_tags_command = 'ctags -R'
 
 command! Ctrlp execute (len(system('git rev-parse'))) ? ':Files' : ':GFiles'
+command! -bang -nargs=* Tags call fzf#vim#tags(<q-args>, { 'options': '--with-nth 1,2' }, <bang>0)
+
 
 nnoremap <C-f> :Rg<CR>
 nnoremap <C-p> :Ctrlp<CR>
