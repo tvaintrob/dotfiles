@@ -40,14 +40,6 @@ function CustomPythonHighlights()
     hi semshiImported        ctermfg=214 guifg=#ffaf00
 endfunction
 
-" function FoldExpr()
-"     let nl = v:foldend - v:foldstart
-"     let line = getline(v:foldstart)
-"     let text = '> ' . line . '    ' . nl . ' Lines'
-"     return text
-" endfunction
-" set foldtext=FoldExpr()
-
 let g:FoldText_placeholder = '<...>'
 let g:FoldText_line = 'L'
 let g:FoldText_level = 'Z'
@@ -57,4 +49,5 @@ let g:FoldText_multiplication = '*'
 let g:FoldText_epsilon = '0'
 let g:FoldText_denominator = 25
 
+set foldmethod=syntax
 set foldtext=CustomFoldText()
