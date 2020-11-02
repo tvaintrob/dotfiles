@@ -22,18 +22,23 @@ highlight ColorColumn ctermbg=0 guibg=lightgray
 
 call plug#begin(stdpath('data') . '/plugged')
 
+" Lua Plugs
+Plug 'nvim-treesitter/nvim-treesitter'
+
 " UI
 Plug 'dracula/vim'
-Plug 'morhetz/gruvbox'
-Plug 'ayu-theme/ayu-vim'
+Plug 'liuchengxu/space-vim-theme'
+Plug 'sainnhe/gruvbox-material'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scottmcginness/vim-foldtext'
 
 " Editor Behavior
+Plug 'airblade/vim-rooter'
 Plug 'psliwka/vim-smoothie'
 Plug 'dhruvasagar/vim-vinegar'
 Plug 'tpope/vim-fugitive'
@@ -58,10 +63,7 @@ Plug 'othree/es.next.syntax.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'alfredodeza/pytest.vim'
-Plug 'tmhedberg/SimpylFold'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'sheerun/vim-polyglot'
-Plug 'dart-lang/dart-vim-plugin'
 Plug 'kevinoid/vim-jsonc'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -75,6 +77,9 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.tsx'
 let g:polyglot_disabled = ['typescript', 'javascriptreact', 'javascript', 'python']
 let g:qs_buftype_blacklist = ['terminal', 'nofile']
 
+let g:go_gopls_enabled = 0
+autocmd BufEnter,BufNew *.mod set filetype=gomod
+
 if executable('rg')
   let g:gutentags_file_list_command = 'rg --files'
 endif
@@ -86,3 +91,5 @@ nnoremap <leader>h :nohlsearch<CR>
 for file in split(glob(stdpath("config").'/config/*.vim'), '\n')
     exe 'source' file
 endfor
+
+luafile /Users/tvaintrob/.config/nvim/config/treesitter.lua
