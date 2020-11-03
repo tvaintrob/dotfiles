@@ -24,14 +24,12 @@ call plug#begin(stdpath('data') . '/plugged')
 
 " Lua Plugs
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " UI
-Plug 'dracula/vim'
-Plug 'liuchengxu/space-vim-theme'
 Plug 'sainnhe/gruvbox-material'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
@@ -49,12 +47,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cohama/lexima.vim'
-Plug 'unblevable/quick-scope'
-Plug 'kkoomen/vim-doge'
 Plug 'alvan/vim-closetag'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'puremourning/vimspector'
 Plug 'liuchengxu/vista.vim'
 
 " Language Extensions
@@ -75,7 +70,6 @@ let g:mkdp_auto_close = 0
 let g:rg_derive_root = 'true'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.tsx'
 let g:polyglot_disabled = ['typescript', 'javascriptreact', 'javascript', 'python']
-let g:qs_buftype_blacklist = ['terminal', 'nofile']
 
 let g:go_gopls_enabled = 0
 autocmd BufEnter,BufNew *.mod set filetype=gomod
@@ -92,4 +86,4 @@ for file in split(glob(stdpath("config").'/config/*.vim'), '\n')
     exe 'source' file
 endfor
 
-luafile /Users/tvaintrob/.config/nvim/config/treesitter.lua
+luafile /Users/tvaintrob/.config/nvim/config/lua_plugs.lua

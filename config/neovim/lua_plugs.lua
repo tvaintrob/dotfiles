@@ -1,4 +1,7 @@
 local treesitter = require 'nvim-treesitter.configs'
+local colorizer = require 'colorizer'
+
+colorizer.setup()
 
 treesitter.setup {
     ensure_installed = "maintained",
