@@ -31,10 +31,8 @@ let g:airline_right_alt_sep = "\uE0BF"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#vista#enabled = 0
 
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_palette = 'mix'
-let g:gruvbox_material_background = 'hard'
-colorscheme gruvbox-material
+let ayucolor="dark"
+colorscheme ayu
 
 highlight Comment cterm=italic gui=italic
 autocmd FileType vim,javascript,typescript,javascriptreact,typescriptreact hi Type cterm=italic gui=italic

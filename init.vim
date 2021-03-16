@@ -1,5 +1,4 @@
 " NeoVim Config
-"
 " by Tal Vintrob
 
 syntax on
@@ -20,20 +19,25 @@ set foldlevelstart=99 " start with open folds
 set colorcolumn=100
 highlight ColorColumn ctermbg=0 guibg=lightgray
 
+let g:polyglot_disabled = ['typescript', 'typescriptreact', 'javascriptreact', 'javascript', 'python']
+
 call plug#begin(stdpath('data') . '/plugged')
 
 " Lua Plugs
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " UI
-Plug 'sainnhe/gruvbox-material'
-Plug 'Yggdroot/indentLine'
+Plug 'ayu-theme/ayu-vim'
 Plug 'vim-airline/vim-airline'
-Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
+Plug 'coreyja/fzf.devicon.vim'
 Plug 'scottmcginness/vim-foldtext'
+Plug 'glepnir/dashboard-nvim'
 
 " Editor Behavior
 Plug 'airblade/vim-rooter'
@@ -49,16 +53,17 @@ Plug 'junegunn/fzf.vim'
 Plug 'cohama/lexima.vim'
 Plug 'alvan/vim-closetag'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ajorgensen/vim-markdown-toc'
 Plug 'liuchengxu/vista.vim'
+Plug 'vimwiki/vimwiki'
 
 " Language Extensions
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'alfredodeza/pytest.vim'
-Plug 'sheerun/vim-polyglot'
 Plug 'kevinoid/vim-jsonc'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -69,14 +74,11 @@ let mapleader = ","
 let g:mkdp_auto_close = 0
 let g:rg_derive_root = 'true'
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.tsx'
-let g:polyglot_disabled = ['typescript', 'javascriptreact', 'javascript', 'python']
+let g:dashboard_default_executive ='fzf'
+let g:indentLine_fileTypeExclude = ['dashboard']
 
 let g:go_gopls_enabled = 0
 autocmd BufEnter,BufNew *.mod set filetype=gomod
-
-if executable('rg')
-  let g:gutentags_file_list_command = 'rg --files'
-endif
 
 nnoremap <leader><CR> :source $MYVIMRC<CR>
 nnoremap <leader>h :nohlsearch<CR>
@@ -86,4 +88,4 @@ for file in split(glob(stdpath("config").'/config/*.vim'), '\n')
     exe 'source' file
 endfor
 
-luafile /Users/tvaintrob/.config/nvim/config/lua_plugs.lua
+lua require('lua_plugs')

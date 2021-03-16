@@ -9,7 +9,7 @@ let g:coc_global_extensions = [
     \ 'coc-yaml',
     \ 'coc-lists',
     \ 'coc-docker',
-    \ 'coc-python',
+    \ 'coc-pyright',
     \ 'coc-vimlsp',
     \ 'coc-actions',
     \ 'coc-prettier',
