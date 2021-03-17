@@ -1,0 +1,31 @@
+{
+    "suggest.noselect": false,
+    "python.formatting.provider": "black",
+    "python.analysis.typeCheckingMode": "basic",
+    "json.format.enable": true,
+    "coc.preferences.hoverTarget": "float",
+    "coc.preferences.formatOnSaveFiletypes": [
+        "go",
+        "xml",
+        "json",
+        "jsonc",
+        "markdown",
+        "typescript",
+        "javascript",
+        "typescriptreact",
+        "javascriptreact"
+    ],
+    "diagnostic.virtualText": true,
+    "diagnostic.virtualTextPrefix": "  > ",
+    "diagnostic.virtualTextCurrentLineOnly": false,
+    "diagnostic.messageTarget": "float",
+    "list.source.symbols.excludes": [
+        "**/.serverless/**",
+        "**/node_modules/**",
+        "**/venv/**"
+    ],
+    "list.source.files.command": "rg",
+    "list.source.files.args": ["--files"],
+    "list.source.tags.command": "ctags -R `rg --files`",
+    "rest-client.showHeaders": false
+}
