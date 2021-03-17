@@ -1,8 +1,18 @@
 local lspconfig = require('lspconfig')
 local completion = require('completion')
+local saga = require('lspsaga')
 
 local sumneko_root_path = '/usr/local/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
+
+saga.init_lsp_saga({
+    code_action_keys = {
+        quit = '<esc>', exec = '<CR>'
+    },
+    rename_action_keys = {
+        quit = '<esc>', exec = '<CR>'
+    },
+})
 
 lspconfig.sumneko_lua.setup {
     on_attach = completion.on_attach,
@@ -37,8 +47,8 @@ lspconfig.jsonls.setup({ on_attach = completion.on_attach, filetypes = { 'json',
 
 -- setup diagnostics customizations
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-    virtual_text = { spacing = 4, prefix = '▸' }
-  }
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        underline = true,
+        virtual_text = { spacing = 4, prefix = '▸' }
+    }
 )

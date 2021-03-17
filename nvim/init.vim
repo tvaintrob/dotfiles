@@ -25,11 +25,11 @@ set noshowmode
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'ayu-theme/ayu-vim'
+" Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-gruvbox8'
 
-Plug 'rktjmp/lush.nvim'
-Plug 'npxbr/gruvbox.nvim'
+" Plug 'rktjmp/lush.nvim'
+" Plug 'npxbr/gruvbox.nvim'
 
 
 Plug 'tpope/vim-repeat'
@@ -47,6 +47,7 @@ Plug 'dhruvasagar/vim-vinegar'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'glepnir/lspsaga.nvim'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -60,7 +61,7 @@ call plug#end()
 " let ayucolor="mirage"
 " colorscheme ayu
 
-colorscheme gruvbox
+colorscheme gruvbox8_hard
 
 " colorscheme gruvbox8_hard
 "
