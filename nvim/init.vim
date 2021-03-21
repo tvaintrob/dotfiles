@@ -22,21 +22,18 @@ set incsearch
 set signcolumn=yes
 set termguicolors
 set noshowmode
+set undodir=~/.config/nvim/undo
 
 call plug#begin(stdpath('data') . '/plugged')
 
-" Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-gruvbox8'
-
-" Plug 'rktjmp/lush.nvim'
-" Plug 'npxbr/gruvbox.nvim'
-
 
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/jsonc.vim'
+Plug 'airblade/vim-rooter'
 
 Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
@@ -46,31 +43,28 @@ Plug 'preservim/nerdtree'
 Plug 'dhruvasagar/vim-vinegar'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'gfanto/fzf-lsp.nvim'
 Plug 'glepnir/lspsaga.nvim'
-
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-call plug#end()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-" let ayucolor="mirage"
-" colorscheme ayu
+Plug 'sbdchd/neoformat'
+
+call plug#end()
 
 colorscheme gruvbox8_hard
 
-" colorscheme gruvbox8_hard
-"
-" highlight LineNr guibg=#2a2a2a
-" highlight! link SignColumn LineNr
+highlight LineNr guibg=#2a2a2a
+highlight! link SignColumn LineNr
 
 lua require('lua-config.lsp')
 lua require('lua-config.lines')
-lua require('lua-config.telescope')
 lua require('lua-config.treesitter')
 
 let mapleader = ','
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'

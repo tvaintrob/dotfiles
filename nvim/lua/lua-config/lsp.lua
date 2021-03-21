@@ -1,9 +1,7 @@
 local lspconfig = require('lspconfig')
-local completion = require('completion')
 local saga = require('lspsaga')
-
-local sumneko_root_path = '/usr/local/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
+local compe = require('compe')
+local fzf_lsp =  require('fzf_lsp')
 
 saga.init_lsp_saga({
     code_action_keys = {
@@ -14,36 +12,13 @@ saga.init_lsp_saga({
     },
 })
 
-lspconfig.sumneko_lua.setup {
-    on_attach = completion.on_attach,
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = vim.split(package.path, ';'),
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-                },
-            },
-        },
-    },
-}
+fzf_lsp.setup()
+lspconfig.vimls.setup({})
+lspconfig.cssls.setup({})
+lspconfig.jsonls.setup({})
+lspconfig.pyright.setup({})
+lspconfig.tsserver.setup({})
 
-lspconfig.tsserver.setup({ on_attach = completion.on_attach })
-lspconfig.pyright.setup({ on_attach = completion.on_attach })
-lspconfig.cssls.setup({ on_attach = completion.on_attach })
-lspconfig.jsonls.setup({ on_attach = completion.on_attach, filetypes = { 'json', 'jsonc'} })
 
 -- setup diagnostics customizations
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -52,3 +27,28 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         virtual_text = { spacing = 4, prefix = '▸' }
     }
 )
+
+compe.setup({
+  debug = false,
+  enabled = true,
+  autocomplete = true,
+  min_length = 1,
+  preselect = 'enable',
+  throttle_time = 80,
+  source_timeout = 200,
+  incomplete_delay = 400,
+  max_abbr_width = 100,
+  max_kind_width = 100,
+  max_menu_width = 100,
+  documentation = true,
+
+  source = {
+    path = true,
+    buffer = true,
+    calc = true,
+    nvim_lsp = true,
+    nvim_lua = true,
+    treesitter = true
+  },
+})
+
