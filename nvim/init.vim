@@ -34,6 +34,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/jsonc.vim'
 Plug 'airblade/vim-rooter'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'sbdchd/neoformat'
 
 Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
@@ -41,18 +43,18 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'preservim/nerdtree'
 Plug 'dhruvasagar/vim-vinegar'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
-Plug 'gfanto/fzf-lsp.nvim'
 Plug 'glepnir/lspsaga.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
-Plug 'sbdchd/neoformat'
 
 call plug#end()
 
@@ -62,8 +64,8 @@ highlight LineNr guibg=#2a2a2a
 highlight! link SignColumn LineNr
 
 lua require('lua-config.lsp')
-lua require('lua-config.lines')
-lua require('lua-config.treesitter')
+lua require('lua-config.misc')
+lua require('lua-config.telescope')
 
 let mapleader = ','
 let g:python_host_prog = '/usr/local/bin/python'
