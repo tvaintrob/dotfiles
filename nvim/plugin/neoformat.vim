@@ -20,7 +20,7 @@ let g:neoformat_enabled_typescript = ['prettier']
 nnoremap <leader>f :Neoformat<cr>
 
 
-" augroup FORMATTERS
-"     autocmd!
-"     autocmd BufWritePre * undojoin | Neoformat
-" augroup end
+augroup FORMATTERS
+    autocmd!
+    autocmd BufWritePre * Neoformat
+augroup end

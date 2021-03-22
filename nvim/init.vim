@@ -19,8 +19,9 @@ set expandtab
 set autoindent
 set nohlsearch
 set incsearch
-set signcolumn=yes
 set termguicolors
+set guioptions+=!
+set signcolumn=yes
 set noshowmode
 set undodir=~/.config/nvim/undo
 
@@ -35,7 +36,11 @@ Plug 'tpope/vim-commentary'
 Plug 'neoclide/jsonc.vim'
 Plug 'airblade/vim-rooter'
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'cohama/lexima.vim'
 Plug 'sbdchd/neoformat'
+Plug 'gennaro-tedesco/nvim-jqx'
+Plug 'onsails/lspkind-nvim'
 
 Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
@@ -46,8 +51,13 @@ Plug 'dhruvasagar/vim-vinegar'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'hrsh7th/nvim-compe'
 Plug 'glepnir/lspsaga.nvim'
+
+Plug 'ChristianChiarulli/html-snippets'
+Plug 'ChristianChiarulli/python-snippets'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -55,6 +65,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+Plug 'lewis6991/gitsigns.nvim'
 
 call plug#end()
 
@@ -62,6 +73,15 @@ colorscheme gruvbox8_hard
 
 highlight LineNr guibg=#2a2a2a
 highlight! link SignColumn LineNr
+
+highlight GitSignsAdd guibg=#2A2A2A guifg=#587C0C
+highlight GitSignsChange guibg=#2A2A2A guifg=#0C7D9D
+highlight GitSignsDelete guibg=#2A2A2A guifg=#94151B
+
+highlight LspDiagnosticsSignHint guibg=#2A2A2A
+highlight LspDiagnosticsSignError guibg=#2A2A2A
+highlight LspDiagnosticsSignWarning guibg=#2A2A2A
+highlight LspDiagnosticsSignInformation guibg=#2A2A2A
 
 lua require('lua-config.lsp')
 lua require('lua-config.misc')

@@ -15,9 +15,10 @@ vnoremap <silent><leader>ac <cmd>'<,'>lua require('lspsaga.codeaction').range_co
 
 nnoremap <silent><leader>rn <cmd>lua require('lspsaga.rename').rename()<cr>
 
+let g:lexima_no_default_rules = v:true
+call lexima#set_default_rules()
 inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
 
 " Change gutter signs
 sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=
