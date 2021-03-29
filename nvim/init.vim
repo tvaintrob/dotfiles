@@ -37,10 +37,11 @@ Plug 'neoclide/jsonc.vim'
 Plug 'airblade/vim-rooter'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'cohama/lexima.vim'
+Plug 'windwp/nvim-autopairs'
 Plug 'sbdchd/neoformat'
-Plug 'gennaro-tedesco/nvim-jqx'
 Plug 'onsails/lspkind-nvim'
+Plug 'gennaro-tedesco/nvim-jqx', { 'for': ['json', 'jsonc'] }
+Plug 'alvan/vim-closetag', { 'for': ['html', 'javascriptreact', 'typescriptreact'] }
 
 Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
@@ -48,16 +49,17 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'preservim/nerdtree'
 Plug 'dhruvasagar/vim-vinegar'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'glepnir/indent-guides.nvim'
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+
 Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'hrsh7th/nvim-compe'
+" Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'glepnir/lspsaga.nvim'
 
-Plug 'ChristianChiarulli/html-snippets'
-Plug 'ChristianChiarulli/python-snippets'
+Plug 'ChristianChiarulli/html-snippets', { 'for': 'html' }
+Plug 'ChristianChiarulli/python-snippets', { 'for': 'python' }
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -85,6 +87,7 @@ highlight LspDiagnosticsSignInformation guibg=#2A2A2A
 
 lua require('lua-config.lsp')
 lua require('lua-config.misc')
+lua require('lua-config.autopairs')
 lua require('lua-config.telescope')
 
 let mapleader = ','

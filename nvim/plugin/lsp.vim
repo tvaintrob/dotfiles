@@ -1,7 +1,15 @@
 " LSP Related config
 
-set completeopt=menuone,noselect
+set completeopt=menuone,noinsert
 set shortmess+=c
+
+" let g:completion_enable_snippet = 'vim-vsnip'
+let g:completion_confirm_key = ""
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+let g:completion_matching_smart_case = 1
+
+imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+            \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
 imap <silent> <c-space> <Plug>(completion_trigger)
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -15,11 +23,6 @@ vnoremap <silent><leader>ac <cmd>'<,'>lua require('lspsaga.codeaction').range_co
 
 nnoremap <silent><leader>rn <cmd>lua require('lspsaga.rename').rename()<cr>
 
-let g:lexima_no_default_rules = v:true
-call lexima#set_default_rules()
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
-
 " Change gutter signs
 sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=
 sign define LspDiagnosticsSignError text=  texthl=LspDiagnosticsSignError linehl= numhl=
@@ -28,6 +31,6 @@ sign define LspDiagnosticsSignInformation text=  texthl=LspDiagnosticsSignInf
 
 augroup LSPSAGA
     autocmd!
-    " autocmd FileType LspSagaCodeAction nnoremap <buffer> <esc> :q<cr>
     autocmd FileType help nnoremap <buffer> K :h <cword><cr>
+    autocmd BufEnter * lua require'completion'.on_attach()
 augroup end
