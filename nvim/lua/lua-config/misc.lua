@@ -1,7 +1,7 @@
 -- miscellaneous plugins not related to a specific topic
 
 require("indent_guides").setup {indent_start_level = 2}
-require("colorizer").setup {}
+require("colorizer").setup {"*"}
 require("nvim-treesitter.configs").setup {highlight = {enable = true}}
 require("bufferline").setup {options = {separator_style = "slant"}}
 require("lualine").setup {

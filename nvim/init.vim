@@ -41,8 +41,9 @@ Plug 'windwp/nvim-autopairs'
 Plug 'sbdchd/neoformat'
 Plug 'onsails/lspkind-nvim'
 Plug 'gennaro-tedesco/nvim-jqx', { 'for': ['json', 'jsonc'] }
-Plug 'alvan/vim-closetag', { 'for': ['html', 'javascriptreact', 'typescriptreact'] }
+Plug 'alvan/vim-closetag', { 'for': ['html', 'javascript', 'javascriptreact', 'typescriptreact'] }
 
+Plug 'voldikss/vim-floaterm'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'ryanoasis/vim-devicons'
@@ -50,6 +51,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'preservim/nerdtree'
 Plug 'dhruvasagar/vim-vinegar'
 Plug 'glepnir/indent-guides.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
