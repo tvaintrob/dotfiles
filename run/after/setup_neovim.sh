@@ -1,4 +1,6 @@
 #!/bin/sh
 set -o errexit -o nounset
 
-git clone https://github.com/tvaintrob/cosynvim-config.git $HOME/.config/nvim
+if [ ! -d "$HOME/.config/nvim" ]; then 
+    git clone https://github.com/tvaintrob/cosynvim-config.git $HOME/.config/nvim
+fi
