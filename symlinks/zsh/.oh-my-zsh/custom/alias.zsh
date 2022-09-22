@@ -13,3 +13,5 @@ alias svc="kubectl get svc"
 alias pods="kubectl get pods"
 
 alias gcoo='git checkout `git branch --format="%(refname:short)" | fzf --preview="git log {} --color=always"`'
+
+alias ssh='TERM=xterm-256color ssh'

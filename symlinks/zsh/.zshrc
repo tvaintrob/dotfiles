@@ -11,21 +11,22 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-	z
-	gh
-	git
-	asdf
-	helm
-	httpie
-	thefuck
-	vi-mode
-	extract
-	docker
-	docker-compose
-    notify
-	zsh-autosuggestions
-	zsh-syntax-highlighting
-	fzf
+  z
+  gh
+  git
+  aws
+  asdf
+  helm
+  httpie
+  thefuck
+  vi-mode
+  extract
+  docker
+  docker-compose
+  notify
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  fzf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -50,3 +51,6 @@ bindkey '^e' edit-command-line
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# hook direnv
+eval "$(direnv hook zsh)"
