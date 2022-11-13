@@ -2,7 +2,7 @@ unalias ls
 alias ls='ls --group-directories-first --color=always'
 
 alias vim='nvim'
-alias vimrc='vim ~/.config/nvim/init.lua'
+alias vimrc='vim --cmd "cd ~/.config/nvim" ~/.config/nvim/init.lua'
 
 alias lg="lazygit"
 alias lz="lazygit"
