@@ -3,8 +3,11 @@
 DIR=$(dirname "$0")
 
 function setup_linux() {
-  brew install zero-sh/tap/zero
-  $(brew --prefix)/bin/zero apply-symlinks
+  brew install stow
+
+  for package in $DIR/symlinks/*; do
+    $(brew --prefix)/bin/stow --dir $DIR/symlinks --target $HOME $(basename "$package")
+  done
 }
 
 function setup_mac() {
