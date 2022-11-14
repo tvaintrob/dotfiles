@@ -6,6 +6,8 @@ function setup_linux() {
   brew install stow
 
   for package in $DIR/symlinks/*; do
+    $(brew --prefix)/bin/stow --dir $DIR/symlinks --target $HOME --adopt $(basename "$package")
+    git restore $DIR
     $(brew --prefix)/bin/stow --dir $DIR/symlinks --target $HOME $(basename "$package")
   done
 }
