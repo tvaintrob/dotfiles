@@ -7,7 +7,7 @@ function setup_linux() {
 
   for package in $DIR/symlinks/*; do
     $(brew --prefix)/bin/stow --dir $DIR/symlinks --target $HOME --adopt $(basename "$package")
-    git restore $DIR
+    git -C $DIR restore .
     $(brew --prefix)/bin/stow --dir $DIR/symlinks --target $HOME $(basename "$package")
   done
 }
