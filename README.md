@@ -21,3 +21,16 @@ to install run the following:
 git clone --recursive https://github.com/tvaintrob/dotfiles ~/.dotfiles
 caffeinate ~/.dotfiles/zero/setup
 ```
+
+### Post Installation Steps
+
+#### Tmux plugins
+
+first, start tmux, then use `prefix` + `I` (capital i) to install all plugins (prefix is `<ctrl>` + `a` unless changed)
+
+#### Enable iTerm settings sync
+
+1. go to `iTerm2` > `Settings` > `General` > `Preferences`
+2. mark `Load preferences from a custom folder or URL`
+3. point folder to the cloned repo location (`$HOME/.dotfiles` if followed the instructions)
+4. set `Save changes` to `Automatically`
