@@ -6,6 +6,7 @@ export PATH="$HOME/go/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 COMPLETION_WAITING_DOTS="true"
