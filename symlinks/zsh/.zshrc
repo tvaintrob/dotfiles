@@ -3,6 +3,7 @@ export TERM="xterm-256color-italic"
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/scripts:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
@@ -28,6 +29,8 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   fzf
+  yarn
+  poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -55,3 +58,15 @@ bindkey '^e' edit-command-line
 
 # hook direnv
 eval "$(direnv hook zsh)"
+
+# pnpm
+export PNPM_HOME="/Users/vintrob/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
