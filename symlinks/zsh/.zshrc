@@ -15,29 +15,26 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   z
   gh
-  git
   aws
+  fzf
+  git
   asdf
   helm
+  task
+  yarn
+  docker
   httpie
+  poetry
+  extract
   thefuck
   vi-mode
-  extract
-  docker
   docker-compose
-  notify
+  argocd-autopilot
   zsh-autosuggestions
   zsh-syntax-highlighting
-  fzf
-  yarn
-  poetry
 )
 
 source $ZSH/oh-my-zsh.sh
-
-zstyle ':notify:*' command-complete-timeout 5
-zstyle ':notify:*' error-title "Command failed (in #{time_elapsed} seconds)"
-zstyle ':notify:*' success-title "Command finished (in #{time_elapsed} seconds)"
 
 export PAGER='less'
 export EDITOR='nvim'
@@ -70,3 +67,12 @@ esac
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+# bun completions
+[ -s "/Users/vintrob/.oh-my-zsh/completions/_bun" ] && source "/Users/vintrob/.oh-my-zsh/completions/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

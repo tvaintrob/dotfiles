@@ -15,3 +15,5 @@ alias pods="kubectl get pods"
 alias gcoo='git checkout `git branch --format="%(refname:short)" | fzf --preview="git log {} --color=always"`'
 
 alias ssh='TERM=xterm-256color ssh'
+alias nx='yarn nx'
+alias tf='terraform'
