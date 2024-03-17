@@ -8,6 +8,7 @@ export PATH="$HOME/scripts:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
 export XDG_CONFIG_HOME="$HOME/.config"
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 COMPLETION_WAITING_DOTS="true"

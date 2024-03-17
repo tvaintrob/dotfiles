@@ -17,3 +17,6 @@ alias gcoo='git checkout `git branch --format="%(refname:short)" | fzf --preview
 alias ssh='TERM=xterm-256color ssh'
 alias nx='yarn nx'
 alias tf='terraform'
+alias notes='notes-cli'
+alias n='notes-cli'
+alias t="task"
