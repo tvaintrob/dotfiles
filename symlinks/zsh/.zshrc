@@ -1,4 +1,4 @@
-export TERM="xterm-256color-italic"
+export TERM="alacritty"
 
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"

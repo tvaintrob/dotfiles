@@ -20,3 +20,6 @@ alias tf='terraform'
 alias notes='notes-cli'
 alias n='notes-cli'
 alias t="task"
+
+alias gpc="gh pr create"
+alias gpv="gh pr view --web"
