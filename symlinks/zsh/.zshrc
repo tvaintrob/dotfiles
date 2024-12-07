@@ -15,6 +15,7 @@ COMPLETION_WAITING_DOTS="true"
 
 plugins=(
   z
+  uv
   gh
   aws
   fzf
@@ -77,3 +78,5 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+compdef kubecolor=kubectl

@@ -8,6 +8,7 @@ alias lg="lazygit"
 alias lz="lazygit"
 alias ld="lazydocker"
 
+alias kubectl="kubecolor"
 alias kc="kubectl"
 alias svc="kubectl get svc"
 alias pods="kubectl get pods"
