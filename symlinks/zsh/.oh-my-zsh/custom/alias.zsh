@@ -24,3 +24,5 @@ alias t="task"
 
 alias gpc="gh pr create"
 alias gpv="gh pr view --web"
+
+alias db="devbox"

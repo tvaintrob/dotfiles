@@ -4,6 +4,7 @@ export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
@@ -80,3 +81,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 compdef kubecolor=kubectl
+
+export DOCKER_HOST=unix:///Users/vintrob/.docker/run/docker.sock
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

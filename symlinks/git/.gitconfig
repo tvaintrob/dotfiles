@@ -26,9 +26,6 @@ light=false      # set to true if you're in a terminal w/ a light background col
 [diff]
 colorMoved=default
 
-[url "ssh://git@github.com/"]
-    insteadOf = https://github.com/
-
 [merge]
   tool = nvim
 
