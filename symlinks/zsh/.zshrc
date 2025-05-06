@@ -1,15 +1,18 @@
 export TERM="alacritty"
+export BUN_INSTALL="$HOME/.bun"
 
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
+export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
 export XDG_CONFIG_HOME="$HOME/.config"
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+export DOCKER_HOST=unix:///Users/vintrob/.docker/run/docker.sock
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 COMPLETION_WAITING_DOTS="true"
@@ -67,23 +70,11 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-# bun completions
-[ -s "/Users/vintrob/.oh-my-zsh/completions/_bun" ] && source "/Users/vintrob/.oh-my-zsh/completions/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 compdef kubecolor=kubectl
 
-export DOCKER_HOST=unix:///Users/vintrob/.docker/run/docker.sock
-
-
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+export GEMINI_API_KEY="AIzaSyDvhxhjKIJs65zPbamdCDWQEglSA9z6leA"
