@@ -1,0 +1,21 @@
+theme                           = alacritty
+quit-after-last-window-closed   = true
+
+# Remove window padding for vim and tmux
+window-padding-y        = 0
+window-padding-color    = extend
+window-padding-balance  = true
+
+# Setting the cursor to be a block
+cursor-style                = block
+cursor-invert-fg-bg         = true
+shell-integration-features  = no-cursor
+
+# Font settings
+font-size       = 12
+font-thicken    = true
+bold-is-bright  = true
+
+# Disable keymaps for tmux
+keybind = alt+left=unbind
+keybind = alt+right=unbind
