@@ -1,18 +1,12 @@
-export TERM="alacritty"
-export BUN_INSTALL="$HOME/.bun"
-
 export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
-export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
 export XDG_CONFIG_HOME="$HOME/.config"
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
-export DOCKER_HOST=unix:///Users/vintrob/.docker/run/docker.sock
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 COMPLETION_WAITING_DOTS="true"
@@ -26,7 +20,6 @@ plugins=(
   git
   asdf
   helm
-  task
   yarn
   docker
   httpie
@@ -35,7 +28,6 @@ plugins=(
   thefuck
   vi-mode
   docker-compose
-  argocd-autopilot
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -62,19 +54,7 @@ bindkey '^e' edit-command-line
 # hook direnv
 eval "$(direnv hook zsh)"
 
-# pnpm
-export PNPM_HOME="/Users/vintrob/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
+# setup fzf's shell integration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 compdef kubecolor=kubectl
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-export GEMINI_API_KEY="AIzaSyDvhxhjKIJs65zPbamdCDWQEglSA9z6leA"
