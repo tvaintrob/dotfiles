@@ -2,4 +2,4 @@
 load_dotenv = true
 
 [whitelist]
-prefix = ["~/workspaces/"]
+prefix = ["~/workspaces/", "~/conductor/"]

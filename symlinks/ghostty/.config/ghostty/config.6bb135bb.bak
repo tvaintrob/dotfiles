@@ -19,4 +19,3 @@ bold-is-bright  = true
 # Disable keymaps for tmux
 keybind = alt+left=unbind
 keybind = alt+right=unbind
-keybind = shift+enter=text:\n

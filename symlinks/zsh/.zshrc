@@ -1,7 +1,9 @@
+export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
 export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="$HOME/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
+export PATH="$HOME/workspaces/harmony/cc-review/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
@@ -54,7 +56,17 @@ bindkey '^e' edit-command-line
 # hook direnv
 eval "$(direnv hook zsh)"
 
+# hook fzf
+source <(fzf --zsh)
+
 # setup fzf's shell integration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 compdef kubecolor=kubectl
+
+# bun completions
+[ -s "/Users/tvaintrob/.bun/_bun" ] && source "/Users/tvaintrob/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
